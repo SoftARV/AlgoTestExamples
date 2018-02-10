@@ -1,7 +1,6 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, Platform, Dimensions } from 'react-native';
+import { View, Text, TextInput, ScrollView, StyleSheet, Platform, Dimensions } from 'react-native';
 import { Header, Button } from 'react-native-elements';
-import { AutoGrowingTextInput } from 'react-native-autogrow-textinput';
 
 import TestTwo from '../functions/TestTwo';
 
@@ -15,12 +14,12 @@ class TestTwoScreen extends React.Component {
     this.state = { inputValue: '', testResult: '' };
   }
 
-  onInputChange(event) {
-    this.setState({ inputValue: event.nativeEvent.text || '' });
+  onInputChange(text) {
+    this.setState({ inputValue: text || '' });
   }
 
-  onResultChange(event) {
-    this.setState({ inputValue: event.nativeEvent.text || '' });
+  onResultChange(text) {
+    this.setState({ inputValue: text || '' });
   }
 
   setTestCaseOnInput = () => {
@@ -43,13 +42,14 @@ class TestTwoScreen extends React.Component {
           centerComponent={{ text: 'Test 2', style: { color: '#fff' } }}
         />
         <View style={styles.container}>
-          <AutoGrowingTextInput 
+        <TextInput 
             value={this.state.inputValue}
-            onChange={(event) => this.onInputChange(event)}
+            onChangeText={(text) => this.onInputChange(text)}
             style={styles.textInput}
-            placeholder={'Input for Test'}
+            placeholder='Input for test'
+            multiline={true}
+            autoGrow={!IsIOS}
             maxHeight={200}
-            minHeight={45}
           />
           <View style={styles.buttonContainer}>
             <Button 
@@ -68,13 +68,14 @@ class TestTwoScreen extends React.Component {
             buttonStyle={styles.runButton}
             onPress={this.runTestButtonPress}
           />
-          <AutoGrowingTextInput 
+          <TextInput 
             value={this.state.testResult}
-            onChange={(event) => this.onResultChange(event)}
+            onChangeText={(text) => this.onResultChange(text)}
             style={styles.textInput}
-            placeholder={'Test Result...'}
-            maxHeight={300}
-            minHeight={45}
+            placeholder='Test Result...'
+            multiline={true}
+            autoGrow={!IsIOS}
+            maxHeight={200}
           />
         </View>
       </View>
